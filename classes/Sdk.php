@@ -1,15 +1,13 @@
-<?php namespace PAM;
+<?php namespace PAM4;
 
 use PAM4\Http\HttpRequest;
-use PAM4\Http\HttpServer;
-use PAM4\REST\Event;
+use PAM4\DI;
 
 class Sdk {
 
     private $baseURL;
     private $appId;
     private $appSecret;
-    private $di;
 
     public function __construct($baseURL, $appId='', $appSecret=''){
         $this->baseURL = $baseURL;
@@ -17,8 +15,11 @@ class Sdk {
         $this->appSecret = $appSecret;
     }
 
-    public function sendEvent($event, $tags = [], $params = []) {
+    public function sendEvent($event, $params = [], $tags = []) {
         // Call api and return response from api synchronously
+        /* @var $rqt PAM4\Http\HttpRequest */
+        $rqt = DI::getInstance()->getService(DI::SERVICEID_HTTPREQUEST);
+        
         return [];
     }
 }

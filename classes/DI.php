@@ -1,5 +1,6 @@
 <?php namespace PAM4;
 
+use Mcustiel\DependencyInjection\DependencyInjectionService;
 use PAM4\Helpers\TimeHelper;
 use PAM4\Http\HttpCookie;
 use PAM4\Http\HttpRequest;

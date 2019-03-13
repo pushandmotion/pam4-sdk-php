@@ -10,6 +10,9 @@ class SdkTest extends TestCase
 {
     use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
+    /**
+     * @var PAM4\Sdk $sdk
+     */
     public $sdk;
 
     public function __construct(){
@@ -37,27 +40,25 @@ class SdkTest extends TestCase
         $mockHttp->shouldReceive('init')->once();
         $mockHttp->shouldReceive('setOptions')->once()->with(Mockery::on(function($args) use ($expectedCookiesString) {
              //Assert Post Vars
-            // $posts = [];
-            // parse_str($args[CURLOPT_POSTFIELDS], $posts);
-            // $assertPosts =
-            //     $posts['email'] == 'chaiyapong@3dsinteractive.com' &&
-            //     $posts['gender'] == 1 &&
-            //     $posts['age'] == 10;
+            $posts = [];
+            parse_str($args[CURLOPT_POSTFIELDS], $posts);
+            $assertPosts =
+                $posts['email'] == 'chaiyapong@3dsinteractive.com' &&
+                $posts['gender'] == 1 &&
+                $posts['age'] == 10;
 
             //Assert Headers
-            // $appId = '3ds';
-            // $appSecret = 'interactive';
-            // $expectedAuthHeader = 'Authorization: Basic ' . base64_encode($appId.':'.$appSecret);
+            $appId = '3ds';
+            $appSecret = 'interactive';
+            $expectedAuthHeader = 'Authorization: Basic ' . base64_encode($appId.':'.$appSecret);
 
-            // $headers = $args[CURLOPT_HTTPHEADER];
-            // $assertHeaders =
-            //         in_array('Accept: application/json', $headers) &&
-            //         in_array($expectedAuthHeader, $headers) &&
-            //         in_array('Cookie: '.$expectedCookiesString, $headers);
+            $headers = $args[CURLOPT_HTTPHEADER];
+            $assertHeaders =
+                    in_array('Accept: application/json', $headers) &&
+                    in_array($expectedAuthHeader, $headers) &&
+                    in_array('Cookie: '.$expectedCookiesString, $headers);
 
-            // return $assertPosts && $assertHeaders;
-
-            return true;
+            return $assertPosts && $assertHeaders;
         }));
         $mockApiResult = '{"contact_id":"return_contact_id_1234"}';
         $mockHttp->shouldReceive('execute')->once()->andReturn($mockApiResult);
@@ -73,7 +74,7 @@ class SdkTest extends TestCase
             return $mockCookies;
         });
 
-        $result = $sdk->submitForm('1', [
+        $result = $sdk->sendEvent('event_name_123', [
             'media_1'=>'chaiyapong@3dsinteractive.com',
             'gender'=>1,
             'age'=>10

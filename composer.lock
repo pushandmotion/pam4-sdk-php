@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a959488b084328f54c8c7a14dccd10e8",
+    "content-hash": "327632c975660179cf371cbe8156b810",
     "packages": [
+        {
+            "name": "mcustiel/php-simple-di",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mcustiel/php-simple-di.git",
+                "reference": "7c414c7740fc733c6525e77760f6b67a8e5e42c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mcustiel/php-simple-di/zipball/7c414c7740fc733c6525e77760f6b67a8e5e42c8",
+                "reference": "7c414c7740fc733c6525e77760f6b67a8e5e42c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phing/phing": ">=2.0",
+                "phpmd/phpmd": "@stable",
+                "phpunit/phpunit": ">=4.3.0",
+                "sebastian/phpcpd": ">=1.4.3",
+                "squizlabs/php_codesniffer": ">=2.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mcustiel\\DependencyInjection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mariano Custiel",
+                    "email": "jmcustiel@gmail.com",
+                    "homepage": "https://github.com/mcustiel",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Minimalist library to manage dependency injection with low memory usage and high performance.",
+            "keywords": [
+                "Simple",
+                "dependency injection",
+                "library",
+                "minimalist"
+            ],
+            "time": "2015-01-06T14:12:39+00:00"
+        },
         {
             "name": "php-curl-class/php-curl-class",
             "version": "7.4.0",
