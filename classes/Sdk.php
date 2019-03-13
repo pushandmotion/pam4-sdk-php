@@ -1,6 +1,5 @@
 <?php namespace PAM4;
 
-use PAM4\Http\HttpRequest;
 use PAM4\DI;
 
 class Sdk {
@@ -17,9 +16,10 @@ class Sdk {
 
     public function sendEvent($event, $params = [], $tags = []) {
         // Call api and return response from api synchronously
-        /* @var $rqt PAM4\Http\HttpRequest */
+
+        /** @var \PAM4\Http\HttpRequest $rqt */
         $rqt = DI::getInstance()->getService(DI::SERVICEID_HTTPREQUEST);
-        
+
         return [];
     }
 }
