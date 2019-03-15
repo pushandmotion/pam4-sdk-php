@@ -19,7 +19,7 @@ class Sdk {
 
         /** @var \PAM4\Http\HttpRequest $rqt */
         $rqt = DI::getInstance()->getService(DI::SERVICEID_HTTPREQUEST);
-        $rqt->init($this->baseURL);
+	    $rqt->init($this->baseURL . "/trackers/events");
 
 	    $options = [];
 
