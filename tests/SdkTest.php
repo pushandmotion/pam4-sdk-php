@@ -33,23 +33,27 @@ class SdkTest extends TestCase
         ];
         $mockCookies = Mockery::mock('\PAM4\Http\HttpCookie');
         $mockCookies->shouldReceive('getAll')->once()->andReturn($expectedCookies)->once();
-        $expectedCookiesString = 'contact_id=2&other_cookies1=other_cookie_1234';
+        $expectedCookiesString = 'contact_id=contact_id_1234&other_cookies1=other_cookie_1234';
 
         //Mock Request Endpoint
         $mockHttp = Mockery::mock('\PAM4\Http\HttpRequest');
         $mockHttp->shouldReceive('init')->once();
         $mockHttp->shouldReceive('setOptions')->once()->with(Mockery::on(function($args) use ($expectedCookiesString) {
-             //Assert Post Vars
+        	//Assert Post Vars
             $posts = [];
             parse_str($args[CURLOPT_POSTFIELDS], $posts);
             $assertPosts =
-                $posts['email'] == 'chaiyapong@3dsinteractive.com' &&
-                $posts['gender'] == 1 &&
-                $posts['age'] == 10;
+                $posts['event'] == 'event_name_123' &&
+                $posts['form_fields'] == [
+	                'media_1'=>'chaiyapong@3dsinteractive.com',
+	                'gender'=>1,
+	                'age'=>10
+                ] &&
+                $posts['tags'] == '';
 
             //Assert Headers
-            $appId = '3ds';
-            $appSecret = 'interactive';
+            $appId = '1978544d7488415980feeb56b1312a2a';
+            $appSecret = 'def0000081ffc5d04b7e61894e7dc8bb6e4ba104f875c35185cac64526c96358bc3a5de1d4198d34a994d7c28ef9dec47120325aaf28c0c7ab7b79984f8adcc5b5014fa5';
             $expectedAuthHeader = 'Authorization: Basic ' . base64_encode($appId.':'.$appSecret);
 
             $headers = $args[CURLOPT_HTTPHEADER];
@@ -58,11 +62,17 @@ class SdkTest extends TestCase
                     in_array($expectedAuthHeader, $headers) &&
                     in_array('Cookie: '.$expectedCookiesString, $headers);
 
-            return $assertPosts && $assertHeaders;
+            $assertOtherOptions =
+	            $args[CURLOPT_POST] == true &&
+	            $args[CURLOPT_RETURNTRANSFER] == true &&
+	            $args[CURLOPT_SSL_VERIFYHOST] == false &&
+	            $args[CURLOPT_SSL_VERIFYPEER] == false &&
+	            $args[CURLOPT_CONNECTTIMEOUT] > 0;
+
+            return $assertPosts && $assertHeaders && $assertOtherOptions;
         }));
         $mockApiResult = '{"contact_id":"return_contact_id_1234"}';
         $mockHttp->shouldReceive('execute')->once()->andReturn($mockApiResult);
-        $mockHttp->shouldReceive('getInfo')->once();
         $mockHttp->shouldReceive('close')->once();
 
         //Setup DI.
