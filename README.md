@@ -20,7 +20,7 @@ Client SDK to access PAM
     ```
     use PAM4\Sdk;
         
-    $pamUrl = 'https://pam4-stg-connect.sitespad.com';
+    $pamUrl = 'https://connect.pamapimock.com';
     $appId = 'APP_ID';
     $appSecret = 'APP_SECRET';
         
