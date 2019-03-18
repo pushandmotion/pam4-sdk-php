@@ -40,8 +40,7 @@ class SdkTest extends TestCase
         $mockHttp->shouldReceive('init')->once();
         $mockHttp->shouldReceive('setOptions')->once()->with(Mockery::on(function($args) use ($expectedCookiesString) {
         	//Assert Post Vars
-            $posts = [];
-            parse_str($args[CURLOPT_POSTFIELDS], $posts);
+            $posts = json_decode($args[CURLOPT_POSTFIELDS], true);
             $assertPosts =
                 $posts['event'] == 'event_name_123' &&
                 $posts['form_fields'] == [
@@ -58,7 +57,7 @@ class SdkTest extends TestCase
 
             $headers = $args[CURLOPT_HTTPHEADER];
             $assertHeaders =
-                    in_array('Accept: application/json', $headers) &&
+                    in_array('Content-Type: application/json', $headers) &&
                     in_array($expectedAuthHeader, $headers) &&
                     in_array('Cookie: '.$expectedCookiesString, $headers);
 

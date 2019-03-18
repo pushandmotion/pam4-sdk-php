@@ -24,7 +24,7 @@ class Sdk {
 	    $options = [];
 
 	    $headers = [
-		    "Accept: application/json",
+		    "Content-Type: application/json",
 		    $this->createAuthHeader($this->appId, $this->appSecret),
 		    $this->createCookiesHttpHeader()
 	    ];
@@ -39,7 +39,7 @@ class Sdk {
 	    ];
 	    if ($postData && !empty($postData)) {
 		    $options[CURLOPT_POST] = true;
-		    $options[CURLOPT_POSTFIELDS] = http_build_query($postData);
+		    $options[CURLOPT_POSTFIELDS] = json_encode($postData);
 	    }
 
 	    $options[CURLOPT_RETURNTRANSFER] = true;
